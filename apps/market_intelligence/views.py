@@ -1,71 +1,138 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-import requests
-from bs4 import BeautifulSoup
+from django.http import JsonResponse
+from django.urls import reverse_lazy
+from .services.price_scraper import PriceScraperService
+from .forms import MaterialQuoteForm, BulkQuoteForm
+import json
+import asyncio
 from datetime import datetime, timedelta
 import random
 
-class MarketIntelligenceView(LoginRequiredMixin, TemplateView):
+class MarketIntelligenceView(TemplateView):
     template_name = 'market_intelligence/dashboard.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        # Dados de exemplo para visualização inicial
-        context['news'] = self.get_sample_news()
-        context['indices'] = self.get_sample_indices()
-        context['prices'] = self.get_sample_prices()
-        
+        context['sample_news'] = self.get_sample_news()
+        context['price_trends'] = self.get_price_trends()
         return context
 
+    def get_price_trends(self):
+        # Dados de exemplo para tendências de preços
+        materials = ['Cimento', 'Areia', 'Brita', 'Tijolo', 'Aço']
+        trends = []
+        
+        base_date = datetime.now()
+        for material in materials:
+            price_history = []
+            base_price = random.uniform(50, 500)
+            
+            for i in range(7):
+                date = base_date - timedelta(days=i)
+                variation = random.uniform(-5, 5)
+                price = base_price + variation
+                price_history.append({
+                    'date': date.strftime('%d/%m/%Y'),
+                    'price': round(price, 2)
+                })
+            
+            trends.append({
+                'material': material,
+                'history': price_history,
+                'current_price': round(price_history[0]['price'], 2),
+                'variation': round(((price_history[0]['price'] - price_history[-1]['price']) / price_history[-1]['price']) * 100, 2)
+            })
+        
+        return trends
+
     def get_sample_news(self):
-        # Dados de exemplo para notícias
-        return [
+        # Dados de exemplo para notícias do mercado
+        base_date = datetime.now()
+        news_list = [
             {
-                'title': 'Construção Civil registra crescimento no primeiro trimestre',
-                'source': 'CBIC',
-                'summary': 'O setor da construção civil apresentou crescimento significativo...',
-                'published_date': datetime.now() - timedelta(days=1),
-                'url': '#'
+                'title': 'Aumento no preço do aço impacta construção civil',
+                'date': (base_date - timedelta(days=1)).strftime('%d/%m/%Y'),
+                'source': 'Construção Mercado',
+                'summary': 'Preços do aço registram aumento de 15% no último mês devido à demanda global.'
             },
             {
-                'title': 'Novos índices de custos da construção são divulgados',
-                'source': 'Sinduscon',
-                'summary': 'Os novos índices mostram variação importante nos custos...',
-                'published_date': datetime.now() - timedelta(days=2),
-                'url': '#'
+                'title': 'Novos materiais sustentáveis ganham mercado',
+                'date': (base_date - timedelta(days=2)).strftime('%d/%m/%Y'),
+                'source': 'Revista Construir',
+                'summary': 'Materiais eco-friendly apresentam crescimento de 25% nas vendas do setor.'
             },
             {
-                'title': 'Inovações tecnológicas impactam o setor da construção',
-                'source': 'PiniWeb',
-                'summary': 'Novas tecnologias estão transformando o modo de construir...',
-                'published_date': datetime.now() - timedelta(days=3),
-                'url': '#'
+                'title': 'Cimento tem queda de preço em março',
+                'date': (base_date - timedelta(days=3)).strftime('%d/%m/%Y'),
+                'source': 'Portal Construção',
+                'summary': 'Preço do cimento registra queda de 5% devido ao aumento da oferta.'
             }
         ]
+        return news_list
 
-    def get_sample_indices(self):
-        # Dados de exemplo para índices
-        return {
-            'labels': ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
-            'datasets': [
-                {
-                    'name': 'INCC',
-                    'data': [0.8, 1.2, 0.9, 1.1, 1.3]
-                },
-                {
-                    'name': 'CUB',
-                    'data': [1.1, 0.9, 1.2, 1.0, 1.4]
-                }
-            ]
-        }
+    def get(self, request, *args, **kwargs):
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            data = {
+                'price_trends': self.get_price_trends(),
+                'news': self.get_sample_news()
+            }
+            return JsonResponse(data)
+        return super().get(request, *args, **kwargs)
 
-    def get_sample_prices(self):
-        # Dados de exemplo para preços de materiais
-        return [
-            {'material': 'Cimento', 'price': 32.50, 'variation': '+2.5%'},
-            {'material': 'Aço', 'price': 22.80, 'variation': '-1.2%'},
-            {'material': 'Concreto', 'price': 350.00, 'variation': '+0.8%'},
-            {'material': 'Tijolos', 'price': 1.20, 'variation': '+1.5%'},
-            {'material': 'Areia', 'price': 120.00, 'variation': '+0.3%'}
-        ] 
+class QuoteSearchView(FormView):
+    template_name = 'market_intelligence/quote_search.html'
+    form_class = MaterialQuoteForm
+    success_url = reverse_lazy('market_intelligence:quote_search')
+
+    def form_valid(self, form):
+        try:
+            material = form.cleaned_data['name']
+            scraper = PriceScraperService()
+            results = scraper.search_material(material)
+            
+            if form.cleaned_data.get('generate_report'):
+                filename = scraper.generate_report(
+                    results, 
+                    form.cleaned_data['report_format']
+                )
+                return JsonResponse({
+                    'success': True,
+                    'results': results,
+                    'report_url': f'/media/results/{filename}'
+                })
+            
+            return JsonResponse({
+                'success': True,
+                'results': results
+            })
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            })
+
+class BulkQuoteView(FormView):
+    template_name = 'market_intelligence/bulk_quote.html'
+    form_class = BulkQuoteForm
+    success_url = reverse_lazy('market_intelligence:bulk_quote')
+
+    def form_valid(self, form):
+        try:
+            file = form.cleaned_data['file']
+            scraper = PriceScraperService()
+            results = scraper.process_bulk_file(file.temporary_file_path())
+            filename = scraper.generate_report(
+                results.to_dict('records'),
+                form.cleaned_data['report_format']
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'report_url': f'/media/results/{filename}'
+            })
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }) 
