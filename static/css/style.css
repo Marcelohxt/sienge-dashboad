@@ -3,7 +3,11 @@ body {
     background-color: #f8f9fa;
 }
 
-/* Estilos do sidebar */
+#wrapper {
+    overflow-x: hidden;
+}
+
+/* Sidebar */
 #sidebar-wrapper {
     min-height: 100vh;
     margin-left: -15rem;
@@ -19,11 +23,19 @@ body {
     width: 15rem;
 }
 
-/* Estilos dos cards */
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+/* Cards */
 .dashboard-card {
     transition: transform 0.2s;
-    border: none;
     border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .dashboard-card:hover {
@@ -39,4 +51,20 @@ body {
 .card-header {
     background-color: transparent;
     border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
 } 
