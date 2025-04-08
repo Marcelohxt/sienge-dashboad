@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Sienge Dashboard{% endblock %}</title>
     
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -18,40 +20,45 @@
 <body>
     <!-- Sidebar -->
     <div class="d-flex" id="wrapper">
-        <div class="bg-dark border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading text-white">Sienge Dashboard</div>
+        <div id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                <i class="fas fa-chart-line me-2"></i>
+                Sienge Dashboard
+            </div>
             <div class="list-group list-group-flush">
-                <a href="{% url 'dashboard:index' %}" class="list-group-item list-group-item-action bg-dark text-white">
-                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                <a href="{% url 'dashboard:index' %}" class="list-group-item">
+                    <i class="fas fa-tachometer-alt"></i>Dashboard
                 </a>
-                <a href="{% url 'dashboard:suprimentos' %}" class="list-group-item list-group-item-action bg-dark text-white">
-                    <i class="fas fa-boxes me-2"></i>Suprimentos
+                <a href="{% url 'dashboard:suprimentos' %}" class="list-group-item">
+                    <i class="fas fa-boxes"></i>Suprimentos
                 </a>
-                <a href="{% url 'dashboard:orcamentos' %}" class="list-group-item list-group-item-action bg-dark text-white">
-                    <i class="fas fa-calculator me-2"></i>Orçamentos
+                <a href="{% url 'dashboard:orcamentos' %}" class="list-group-item">
+                    <i class="fas fa-calculator"></i>Orçamentos
                 </a>
-                <a href="{% url 'admin:index' %}" class="list-group-item list-group-item-action bg-dark text-white">
-                    <i class="fas fa-cog me-2"></i>Admin
+                <a href="{% url 'admin:index' %}" class="list-group-item">
+                    <i class="fas fa-cog"></i>Admin
                 </a>
             </div>
         </div>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <button class="btn btn-dark" id="menu-toggle">
+                    <button class="btn btn-gradient" id="menu-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <ul class="navbar-nav ms-auto">
                             {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-user me-2"></i>{{ user.username }}
+                                    <i class="fas fa-user-circle me-2"></i>{{ user.username }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="{% url 'admin:logout' %}">Sair</a>
+                                    <a class="dropdown-item" href="{% url 'admin:logout' %}">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Sair
+                                    </a>
                                 </div>
                             </li>
                             {% endif %}
@@ -70,8 +77,68 @@
                     {% endfor %}
                 {% endif %}
 
-                {% block content %}{% endblock %}
+                <div class="fade-in">
+                    {% block content %}{% endblock %}
+                </div>
             </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-info">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="professional-info">
+                                        <h4 class="mb-3">Responsável Técnica</h4>
+                                        <h5 class="text-gradient">Eng.ª Liliane Amanda da Silva</h5>
+                                        <p class="mb-2">
+                                            <i class="fas fa-id-card me-2"></i>
+                                            CREA-SP: 5070026322
+                                        </p>
+                                        <p class="mb-2">
+                                            <i class="fas fa-certificate me-2"></i>
+                                            Registro Nacional: 261521512
+                                        </p>
+                                        <p class="mb-2">
+                                            <i class="fas fa-user-graduate me-2"></i>
+                                            Engenheira Sanitarista e Ambiental
+                                        </p>
+                                        <p class="mb-2">
+                                            <i class="fas fa-calendar-alt me-2"></i>
+                                            Data de Registro: 02/06/2017
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-md-end">
+                                    <div class="contact-info mt-4">
+                                        <a href="#" class="btn btn-gradient mb-2">
+                                            <i class="fas fa-envelope me-2"></i>Contato Profissional
+                                        </a>
+                                        <div class="social-links mt-3">
+                                            <a href="#" class="social-link">
+                                                <i class="fab fa-linkedin"></i>
+                                            </a>
+                                            <a href="#" class="social-link">
+                                                <i class="fas fa-globe"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom mt-4">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <p class="mb-0 text-muted">
+                                    © 2024 - Todos os direitos reservados
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 
@@ -85,9 +152,16 @@
     <script src="{% static 'js/main.js' %}"></script>
 
     <script>
+        // Toggle sidebar
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
+        });
+
+        // Tooltip initialization
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
         });
     </script>
 

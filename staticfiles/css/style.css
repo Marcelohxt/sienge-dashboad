@@ -134,8 +134,8 @@ body {
 
 /* Footer Estilizado */
 .footer {
-    background: linear-gradient(to bottom, var(--secondary-dark), var(--primary-dark));
-    padding: 3rem 0 1.5rem;
+    background: var(--secondary-dark);
+    padding: 2rem 0;
     margin-top: auto;
     border-top: 1px solid rgba(255,255,255,0.1);
 }
@@ -164,86 +164,6 @@ body {
 
 .footer-links a:hover {
     color: var(--accent-color);
-}
-
-.professional-info {
-    padding: 1.5rem;
-    background: rgba(255,255,255,0.05);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.text-gradient {
-    background: linear-gradient(45deg, #6366f1, #8b5cf6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 600;
-}
-
-.professional-info p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-.professional-info i {
-    color: var(--accent-color);
-}
-
-.social-links {
-    display: flex;
-    gap: 15px;
-    justify-content: flex-end;
-}
-
-.social-link {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.05);
-    border-radius: 50%;
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
-}
-
-.social-link:hover {
-    background: var(--accent-color);
-    color: white;
-    transform: translateY(-3px);
-}
-
-.footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1.5rem;
-}
-
-/* Animação para o cartão profissional */
-.professional-info {
-    position: relative;
-    overflow: hidden;
-}
-
-.professional-info::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,0.1),
-        transparent
-    );
-    transition: 0.5s;
-}
-
-.professional-info:hover::before {
-    left: 100%;
 }
 
 /* Animações */
@@ -313,21 +233,4 @@ body {
 .card-header {
     background-color: transparent;
     border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-/* Responsividade do footer */
-@media (max-width: 768px) {
-    .footer-content {
-        text-align: center;
-    }
-    
-    .social-links {
-        justify-content: center;
-        margin-top: 1rem;
-    }
-    
-    .contact-info {
-        text-align: center;
-        margin-top: 2rem;
-    }
 } 
