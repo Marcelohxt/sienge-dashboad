@@ -1,0 +1,42 @@
+/* Estilos gerais */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Estilos do sidebar */
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+/* Estilos dos cards */
+.dashboard-card {
+    transition: transform 0.2s;
+    border: none;
+    border-radius: 10px;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilos dos gráficos */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+} 
