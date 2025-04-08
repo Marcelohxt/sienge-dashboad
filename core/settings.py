@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     # Local apps
     'apps.dashboard',
     'apps.sienge_integration',
+    'market_intelligence',
 ]
 
 MIDDLEWARE = [

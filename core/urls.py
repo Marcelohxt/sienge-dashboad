@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('apps.dashboard.urls')),
     path('api/', include('apps.sienge_integration.urls')),
     path('django_plotly_dash/', include('django_plotly_dash.urls')),
+    path('market-intelligence/', include('market_intelligence.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

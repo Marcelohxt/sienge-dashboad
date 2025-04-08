@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,7 +13,6 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    {% load static %}
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     
     {% block extra_css %}{% endblock %}
@@ -37,6 +37,9 @@
                 </a>
                 <a href="{% url 'admin:index' %}" class="list-group-item">
                     <i class="fas fa-cog"></i>Admin
+                </a>
+                <a href="{% url 'market_intelligence:dashboard' %}" class="list-group-item">
+                    <i class="fas fa-brain"></i>Inteligência de Mercado
                 </a>
             </div>
         </div>
@@ -86,54 +89,45 @@
             <footer class="footer">
                 <div class="container">
                     <div class="footer-content">
-                        <div class="footer-info">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="professional-info">
-                                        <h4 class="mb-3">Responsável Técnica</h4>
-                                        <h5 class="text-gradient">Eng.ª Liliane Amanda da Silva</h5>
-                                        <p class="mb-2">
-                                            <i class="fas fa-id-card me-2"></i>
-                                            CREA-SP: 5070026322
-                                        </p>
-                                        <p class="mb-2">
-                                            <i class="fas fa-certificate me-2"></i>
-                                            Registro Nacional: 261521512
-                                        </p>
-                                        <p class="mb-2">
-                                            <i class="fas fa-user-graduate me-2"></i>
-                                            Engenheira Sanitarista e Ambiental
-                                        </p>
-                                        <p class="mb-2">
-                                            <i class="fas fa-calendar-alt me-2"></i>
-                                            Data de Registro: 02/06/2017
-                                        </p>
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div class="professional-credentials">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="professional-photo">
+                                            <img src="{% static 'img/profile.jpg' %}" alt="Eng.ª Liliane Amanda da Silva">
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0">Eng.ª Liliane Amanda da Silva</h5>
+                                            <span class="professional-title">Engenheira Sanitarista e Ambiental</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 text-md-end">
-                                    <div class="contact-info mt-4">
-                                        <a href="#" class="btn btn-gradient mb-2">
-                                            <i class="fas fa-envelope me-2"></i>Contato Profissional
-                                        </a>
-                                        <div class="social-links mt-3">
-                                            <a href="#" class="social-link">
-                                                <i class="fab fa-linkedin"></i>
-                                            </a>
-                                            <a href="#" class="social-link">
-                                                <i class="fas fa-globe"></i>
-                                            </a>
+                                    <div class="credentials-details">
+                                        <div class="credential-item">
+                                            <span class="credential-label">CREA-SP:</span>
+                                            <span class="credential-value">5070026322</span>
+                                        </div>
+                                        <div class="credential-item">
+                                            <span class="credential-label">Registro Nacional:</span>
+                                            <span class="credential-value">261521512</span>
+                                        </div>
+                                        <div class="credential-item">
+                                            <span class="credential-label">Data de Registro:</span>
+                                            <span class="credential-value">02/06/2017</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="footer-bottom mt-4">
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <p class="mb-0 text-muted">
-                                    © 2024 - Todos os direitos reservados
-                                </p>
+                            <div class="col-md-4 text-md-end">
+                                <div class="contact-links">
+                                    <a href="#" class="contact-link">
+                                        <i class="fas fa-envelope"></i>
+                                        <span>Contato</span>
+                                    </a>
+                                    <a href="#" class="contact-link">
+                                        <i class="fas fa-file-contract"></i>
+                                        <span>ART</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

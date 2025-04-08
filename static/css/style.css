@@ -134,116 +134,82 @@ body {
 
 /* Footer Estilizado */
 .footer {
-    background: linear-gradient(to bottom, var(--secondary-dark), var(--primary-dark));
-    padding: 3rem 0 1.5rem;
-    margin-top: auto;
+    background-color: var(--secondary-dark);
+    padding: 1.5rem 0;
     border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: auto;
 }
 
-.footer-content {
+.professional-credentials {
+    color: var(--text-primary);
+}
+
+.credential-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+}
+
+.professional-title {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.credentials-details {
     display: flex;
-    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 0.5rem;
+    margin-left: 75px;
+}
+
+.credential-item {
+    display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-.footer-info {
+.credential-label {
     color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
-.footer-links {
+.credential-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.contact-links {
     display: flex;
-    gap: 20px;
-}
-
-.footer-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--accent-color);
-}
-
-.professional-info {
-    padding: 1.5rem;
-    background: rgba(255,255,255,0.05);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.text-gradient {
-    background: linear-gradient(45deg, #6366f1, #8b5cf6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 600;
-}
-
-.professional-info p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-.professional-info i {
-    color: var(--accent-color);
-}
-
-.social-links {
-    display: flex;
-    gap: 15px;
+    gap: 1rem;
     justify-content: flex-end;
 }
 
-.social-link {
-    width: 40px;
-    height: 40px;
+.contact-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.05);
-    border-radius: 50%;
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
+    gap: 0.5rem;
 }
 
-.social-link:hover {
-    background: var(--accent-color);
-    color: white;
-    transform: translateY(-3px);
+.contact-link:hover {
+    color: var(--text-primary);
+    background: rgba(255,255,255,0.1);
 }
 
-.footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1.5rem;
-}
+/* Responsividade */
+@media (max-width: 768px) {
+    .credentials-details {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 
-/* Animação para o cartão profissional */
-.professional-info {
-    position: relative;
-    overflow: hidden;
-}
-
-.professional-info::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,0.1),
-        transparent
-    );
-    transition: 0.5s;
-}
-
-.professional-info:hover::before {
-    left: 100%;
+    .contact-links {
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
 }
 
 /* Animações */
@@ -330,4 +296,75 @@ body {
         text-align: center;
         margin-top: 2rem;
     }
-} 
+}
+
+/* Estilos atualizados */
+.professional-photo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #f3a4b5;
+    box-shadow: 0 0 20px rgba(243, 164, 181, 0.2);
+    transition: all 0.3s ease;
+}
+
+.professional-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.3s ease;
+}
+
+.professional-photo:hover {
+    border-color: #e88a9f;
+    box-shadow: 0 0 25px rgba(243, 164, 181, 0.3);
+}
+
+.professional-photo:hover img {
+    transform: scale(1.05);
+}
+
+.professional-credentials {
+    color: var(--text-primary);
+    padding: 1rem 0;
+}
+
+.professional-credentials h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #f3a4b5, #e88a9f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.professional-title {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.credentials-details {
+    margin-left: 75px;
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 2rem;
+}
+
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+    .credentials-details {
+        margin-left: 0;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .professional-photo {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* Resto dos estilos permanecem iguais */ 
