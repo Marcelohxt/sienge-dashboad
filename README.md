@@ -12,6 +12,11 @@
 
 ---
 
+![image](https://github.com/user-attachments/assets/fb263fb9-109f-46f2-8bc9-8592f66c5798)
+
+
+---
+
 ## 🧠 Sobre o Projeto
 
 O **Sienge Dashboard** é um sistema web construído com Django, pensado para ajudar empresas a **visualizar relatórios personalizados e informações estratégicas** com praticidade e flexibilidade.  
