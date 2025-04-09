@@ -1,0 +1,851 @@
+/* Remova ou comente todo o conteúdo anterior e adicione apenas isso para teste */
+body {
+    /* background-color: #FF0000 !important; */ /* Vermelho puro */
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    min-height: 100vh;
+    color: white;
+}
+
+/* Adicione também uma cor forte no sidebar para teste */
+#sidebar-wrapper {
+    /* background-color: #FF0000 !important; */ /* Forçando vermelho na sidebar */
+}
+
+/* E um texto bem visível */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;    /* Usando nossa cor de texto clara da paleta dark */
+    font-weight: 600 !important;
+    letter-spacing: -0.025em !important;
+}
+
+/* Se quiser um estilo mais específico para o h2 do Dashboard */
+.container-fluid h2 {
+    color: var(--text-primary) !important;
+    font-size: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+:root {
+    /* Nova paleta de cores */
+    --primary-dark: #0f172a;      /* Azul escuro para fundo */
+    --secondary-dark: #1e293b;    /* Azul escuro mais claro para elementos */
+    --accent-color: #6366f1;      /* Roxo/índigo para destaque */
+    --accent-hover: #4f46e5;      /* Roxo mais escuro para hover */
+    --text-primary: #f1f5f9;      /* Cinza bem claro para texto principal */
+    --text-secondary: #94a3b8;    /* Cinza médio para texto secundário */
+    --success-color: #10b981;     /* Verde para sucesso */
+    --warning-color: #475569 !important;    /* Substituindo o amarelo por um cinza escuro */
+    --danger-color: #ef4444;      /* Vermelho para erros */
+    --gradient-start: #4f46e5;    /* Início do gradiente */
+    --gradient-end: #6366f1;      /* Fim do gradiente */
+    --alert-color: #334155 !important;      /* Cor para alertas */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+    --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef);
+    --blur-amount: 10px;
+}
+
+/* Estilos Gerais */
+body {
+    /* background-color: var(--primary-dark) !important; */
+    color: var(--text-primary) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    min-height: 100vh;
+}
+
+/* Estilização do Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--primary-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
+}
+
+/* Sidebar Estilizada */
+#sidebar-wrapper {
+    /* background: var(--secondary-dark) !important; */
+    min-height: 100vh;
+    margin-left: -15rem;
+    transition: all .25s ease-out;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 1.2rem 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary) !important;
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end)) !important;
+}
+
+.list-group-item {
+    background: transparent !important;
+    color: var(--text-secondary) !important;
+    border: none !important;
+    padding: 1rem 1.5rem;
+    transition: all 0.3s ease;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+}
+
+.list-group-item:hover {
+    color: var(--text-primary) !important;
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end)) !important;
+    transform: translateX(5px);
+}
+
+.list-group-item i {
+    margin-right: 12px;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Cards Estilizados */
+.dashboard-card {
+    /* background: var(--secondary-dark) !important; */
+    border: none !important;
+    border-radius: 12px !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dashboard-card .card-title {
+    color: var(--text-secondary) !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.dashboard-card .card-text {
+    color: var(--text-primary) !important;
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+}
+
+/* Tabelas Estilizadas */
+.table {
+    color: var(--text-primary) !important;
+    font-size: 0.875rem !important;
+}
+
+.table thead th {
+    background: var(--secondary-dark) !important;
+    border-bottom: 2px solid var(--accent-color) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 1rem !important;
+}
+
+.table tbody td {
+    padding: 1rem !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.table tbody tr:hover {
+    background: rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Botões Estilizados */
+.btn-gradient {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end)) !important;
+    border: none !important;
+    color: white !important;
+    padding: 0.625rem 1.25rem !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    font-size: 0.875rem !important;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Footer Estilizado */
+.footer {
+    background-color: var(--secondary-dark);
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: auto;
+}
+
+.professional-credentials {
+    color: var(--text-primary);
+}
+
+.credential-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+}
+
+.professional-title {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.credentials-details {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.5rem;
+    margin-left: 75px;
+}
+
+.credential-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.credential-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.credential-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.contact-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.contact-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contact-link:hover {
+    color: var(--text-primary);
+    background: rgba(255,255,255,0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .credentials-details {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .contact-links {
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+
+/* Navbar Estilizada */
+.navbar {
+    background: var(--secondary-dark) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 0.75rem 1.5rem !important;
+}
+
+.navbar .dropdown-menu {
+    background: var(--secondary-dark) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 8px !important;
+    margin-top: 0.5rem !important;
+}
+
+.navbar .dropdown-item {
+    color: var(--text-secondary) !important;
+    font-size: 0.875rem !important;
+    padding: 0.5rem 1rem !important;
+}
+
+.navbar .dropdown-item:hover {
+    background: rgba(99, 102, 241, 0.1) !important;
+    color: var(--text-primary) !important;
+}
+
+#wrapper {
+    overflow-x: hidden;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+/* Estilos dos gráficos */
+.card {
+    /* background-color: #FF0000 !important; */  /* Forçando vermelho nos cards */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Responsividade do footer */
+@media (max-width: 768px) {
+    .footer-content {
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .contact-info {
+        text-align: center;
+        margin-top: 2rem;
+    }
+}
+
+/* Estilos atualizados */
+.professional-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-dark);
+}
+
+.professional-photo i {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+}
+
+.professional-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.professional-credentials {
+    color: var(--text-primary);
+    padding: 1rem 0;
+}
+
+.professional-credentials h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #f3a4b5, #e88a9f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.professional-title {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.credentials-details {
+    margin-left: 75px;
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 2rem;
+}
+
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+    .credentials-details {
+        margin-left: 0;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .professional-photo {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* Resto dos estilos permanecem iguais */
+
+.news-card {
+    background: var(--secondary-dark);
+    border-radius: 10px;
+    padding: 1.5rem;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.news-card h6 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.news-summary {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.page-title {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* Estilos para tabelas */
+.table {
+    color: var(--text-primary);
+}
+
+.table thead th {
+    border-bottom: 2px solid var(--accent-color);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+/* Status badges */
+.badge {
+    padding: 0.35em 0.65em !important;
+    font-size: 0.75em !important;
+    font-weight: 500 !important;
+    border-radius: 6px !important;
+}
+
+/* Efeito de borda com gradiente */
+.sidebar-heading::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        #833ab4, #fd1d1d, #fcb045, 
+        #833ab4, #fd1d1d, #fcb045) !important;
+    border-radius: 8px;
+    z-index: -1;
+    animation: animateBorder 8s linear infinite;
+    background-size: 300% 300%;
+}
+
+/* Fundo do título */
+.sidebar-heading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--secondary-dark);
+    border-radius: 6px;
+    z-index: -1;
+}
+
+/* Animação do gradiente */
+@keyframes animateBorder {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Ajuste do container do título */
+#sidebar-wrapper .sidebar-heading {
+    margin: 10px !important;
+    border-radius: 8px !important;
+    box-shadow: 
+        0 4px 15px rgba(0,0,0,0.2),
+        inset 0 2px 4px rgba(255,255,255,0.1) !important;
+}
+
+/* Estilo especial para o título principal h2 */
+h2.dashboard-title {
+    background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    text-shadow: 
+        2px 2px 4px rgba(0,0,0,0.4),
+        -2px -2px 4px rgba(255,255,255,0.1) !important;
+    padding: 20px 0 !important;
+    margin-bottom: 30px !important;
+    position: relative !important;
+    display: inline-block !important;
+}
+
+/* Efeito de borda com gradiente */
+h2.dashboard-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045) !important;
+    border-radius: 3px;
+    animation: gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Ajustando badges e elementos que usavam amarelo */
+.bg-warning {
+    /* background-color: #FF0000 !important; */  /* Forçando vermelho nos elementos warning */
+    color: var(--text-primary) !important;
+}
+
+.text-warning {
+    color: var(--text-primary) !important;
+}
+
+/* Ajustando status e badges que possam usar amarelo */
+.badge-warning {
+    /* background-color: var(--secondary-dark) !important; */
+    color: var(--text-primary) !important;
+}
+
+/* Ajustando qualquer texto que use warning */
+.warning-text {
+    color: var(--text-primary) !important;
+}
+
+/* Ajustando cards que possam usar warning */
+.card.bg-warning {
+    /* background: var(--secondary-dark) !important; */
+    color: var(--text-primary) !important;
+}
+
+/* Ajustando alertas */
+.alert-warning {
+    /* background-color: var(--secondary-dark) !important; */
+    color: var(--text-primary) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Restaurar os estilos originais para elementos warning */
+.bg-warning {
+    background-color: var(--secondary-dark) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Restaurar os estilos originais para a sidebar */
+#sidebar-wrapper {
+    background: var(--secondary-dark);
+}
+
+/* Restaurar os estilos originais para os cards */
+.card {
+    background: var(--secondary-dark);
+}
+
+/* Novo estilo para navbar superior */
+.top-navbar {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 0.75rem 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.25rem;
+}
+
+.nav-item {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item::before {
+    display: none;
+}
+
+.nav-item.active {
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: #fff;
+}
+
+.nav-item i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    opacity: 0.9;
+    color: currentColor;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+}
+
+/* Ajuste do dropdown */
+.dropdown-menu {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste do conteúdo principal */
+.container-fluid {
+    padding: 1.5rem;
+}
+
+/* Remover animações excessivas */
+.top-navbar {
+    animation: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 0.25rem;
+    }
+    
+    .nav-item {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Ajuste do fundo */
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    min-height: 100vh;
+}
+
+/* Grid sutil no fundo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: -1;
+}
+
+/* Reset dos estilos antigos */
+#sidebar-wrapper, 
+.list-group-flush,
+.sidebar-heading {
+    display: none !important;
+}
+
+/* Ajuste do wrapper principal */
+#page-content-wrapper {
+    width: 100% !important;
+    margin-left: 0 !important;
+}
+
+/* Ajuste da navbar principal */
+#page-content-wrapper nav {
+    min-height: 3.5rem; /* Reduzido de ~4rem para 3.5rem */
+    padding: 0.5rem 1rem; /* Reduzido o padding */
+}
+
+/* Estilo refinado para o logo/título */
+#page-content-wrapper nav .navbar-brand {
+    font-size: 1.2rem; /* Tamanho reduzido mas ainda legível */
+    font-weight: 600;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    background: linear-gradient(135deg, 
+        rgba(99, 102, 241, 0.2),
+        rgba(139, 92, 246, 0.2)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Hover do logo */
+#page-content-wrapper nav .navbar-brand:hover {
+    background: linear-gradient(135deg, 
+        rgba(99, 102, 241, 0.3),
+        rgba(139, 92, 246, 0.3)
+    );
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ícone do logo */
+#page-content-wrapper nav .navbar-brand i {
+    font-size: 1rem;
+    color: #6366f1;
+}
+
+/* Container da navbar */
+#page-content-wrapper nav .container-fluid {
+    padding: 0 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Ajuste dos itens de navegação para manter proporção */
+#page-content-wrapper nav .nav-item {
+    padding: 0.35rem 0.7rem; /* Reduzido um pouco o padding */
+    font-size: 0.85rem; /* Reduzido de 0.9rem para 0.85rem */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #page-content-wrapper nav {
+        min-height: 3rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    #page-content-wrapper nav .navbar-brand {
+        font-size: 1.1rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    #page-content-wrapper nav .navbar-brand i {
+        font-size: 0.9rem;
+    }
+}
+
+/* Ajuste dos ícones na navbar */
+#page-content-wrapper nav .nav-item i {
+    font-size: 0.85rem; /* Reduzido de 1rem para 0.85rem */
+    margin-right: 0.4rem; /* Reduzido o espaçamento após o ícone */
+}
+
+/* Ajuste do logo principal */
+#page-content-wrapper nav .navbar-brand {
+    font-size: 1.1rem; /* Reduzido de 1.2rem para 1.1rem */
+}
+
+/* Ícone do logo */
+#page-content-wrapper nav .navbar-brand i {
+    font-size: 0.95rem; /* Reduzido de 1rem para 0.95rem */
+}
+
+/* Dropdown do usuário */
+.dropdown-menu {
+    font-size: 0.85rem; /* Ajustando tamanho do texto do dropdown */
+}
+
+.dropdown-item {
+    padding: 0.4rem 0.8rem; /* Ajustando padding dos itens do dropdown */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #page-content-wrapper nav .nav-item {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    #page-content-wrapper nav .nav-item i {
+        font-size: 0.8rem;
+        margin-right: 0.3rem;
+    }
+} 
