@@ -10,6 +10,22 @@
 
 ![image](https://github.com/user-attachments/assets/af487ed4-b390-468a-a58e-51a51e90c582)
 
+🧾 Descrição (PT-BR)
+Esta é a página de Inteligência de Mercado do projeto Sienge Dashboard, uma aplicação voltada para o setor da construção civil. Nela, os usuários têm acesso a dados atualizados sobre indicadores econômicos da construção, como:
+
+INCC do mês: Índice Nacional de Custo da Construção.
+
+CUB/m²: Custo Unitário Básico por metro quadrado.
+
+Variação mensal dos preços.
+
+Notícias recentes relacionadas ao setor.
+
+Gráfico de Índices da Construção (em construção).
+
+Tabela de Preços de Materiais, com variação de preço.
+
+A interface é responsiva, moderna e focada em clareza e usabilidade. O painel é ideal para engenheiros, gestores e profissionais do setor que precisam de uma visão rápida e precisa do mercado da construção.
 ---
 
 ![image](https://github.com/user-attachments/assets/fb263fb9-109f-46f2-8bc9-8592f66c5798)
