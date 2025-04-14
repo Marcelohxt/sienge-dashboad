@@ -1,19 +1,15 @@
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-<<<<<<< HEAD
 from django.conf import settings
 import requests
 import random
 from datetime import datetime, timedelta
 import json
 from decimal import Decimal
-=======
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard/index.html'
 
-<<<<<<< HEAD
     def get_bcb_data(self):
         """Obtém dados do Banco Central do Brasil"""
         try:
@@ -72,20 +68,15 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         
         # Métricas principais
         context.update({
-            'solicitacoes_total': -36810,
-            'pedidos_andamento': -36755,
-            'cotacoes_abertas': -36742,
-            'itens_estoque': -36698,
+            'solicitacoes_total': random.randint(100, 200),
+            'pedidos_andamento': random.randint(20, 50),
+            'cotacoes_abertas': random.randint(10, 30),
+            'itens_estoque': random.randint(500, 1000),
             'bcb_data': bcb_data,
             'material_prices': material_prices,
             'last_update': datetime.now().strftime('%d/%m/%Y %H:%M')
         })
         
-=======
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Aqui você pode adicionar dados para o dashboard
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
         return context
 
 class SuprimentosView(LoginRequiredMixin, TemplateView):
@@ -93,7 +84,6 @@ class SuprimentosView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-<<<<<<< HEAD
         
         # Simulando dados (em produção, isso viria da API do Sienge)
         solicitacoes = [
@@ -113,15 +103,6 @@ class SuprimentosView(LoginRequiredMixin, TemplateView):
             'ultimas_solicitacoes': solicitacoes
         })
         
-=======
-        # Aqui você pode adicionar dados específicos de suprimentos
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
         return context
 
 class OrcamentosView(LoginRequiredMixin, TemplateView):
-    template_name = 'dashboard/orcamentos.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Aqui você pode adicionar dados específicos de orçamentos
-        return context 
