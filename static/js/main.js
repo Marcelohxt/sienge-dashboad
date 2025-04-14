@@ -82,4 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'translateY(0)';
         });
     });
+<<<<<<< HEAD
 }); 
+=======
+}); 
+>>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
