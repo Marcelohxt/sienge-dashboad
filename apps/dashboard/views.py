@@ -6,9 +6,12 @@ import random
 from datetime import datetime, timedelta
 import json
 from decimal import Decimal
+<<<<<<< HEAD
 from django.db.models import Sum, Count
 from django.utils import timezone
 from .models import Projeto, Orcamento, Cliente, Fornecedor, Material, PedidoCompra, Cotacao, SolicitacaoCompra
+=======
+>>>>>>> 4c7a0ce827863689dc75657b541d6699a2a06a7f
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard/index.html'
@@ -109,9 +112,3 @@ class SuprimentosView(LoginRequiredMixin, TemplateView):
         return context
 
 class OrcamentosView(LoginRequiredMixin, TemplateView):
-    template_name = 'dashboard/orcamentos.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Aqui você pode adicionar dados específicos de orçamentos
-        return context 
