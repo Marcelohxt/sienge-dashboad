@@ -7,7 +7,6 @@
 <div class="container-fluid">
     <div class="row mb-4">
         <div class="col">
-<<<<<<< HEAD
             <h2 class="page-title">Orçamentos</h2>
         </div>
     </div>
@@ -36,49 +35,10 @@
             <div class="metric-card cyan">
                 <h6 class="metric-label">Itens Orçados</h6>
                 <div class="metric-value">87</div>
-=======
-            <h2>Orçamentos</h2>
-        </div>
-    </div>
-
-    <!-- Cards de Resumo -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card dashboard-card bg-primary text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Total Orçado</h5>
-                    <h2 class="card-text">R$ 0,00</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card dashboard-card bg-success text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Total Realizado</h5>
-                    <h2 class="card-text">R$ 0,00</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card dashboard-card bg-warning text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Variação</h5>
-                    <h2 class="card-text">0%</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card dashboard-card bg-info text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Itens Orçados</h5>
-                    <h2 class="card-text">0</h2>
-                </div>
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
             </div>
         </div>
     </div>
 
-<<<<<<< HEAD
     <!-- Gráfico Comparativo -->
     <div class="row">
         <div class="col-12">
@@ -108,18 +68,6 @@
             <div class="chart-container" style="position: relative; height: 300px;">
                 <h5 class="card-title mb-4">Tendência de Custos</h5>
                 <canvas id="trendChart"></canvas>
-=======
-    <!-- Gráfico de Comparativo -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Comparativo Orçado x Realizado</h5>
-                </div>
-                <div class="card-body">
-                    <div id="grafico_comparativo" style="height: 400px;"></div>
-                </div>
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
             </div>
         </div>
     </div>
@@ -128,7 +76,6 @@
 
 {% block extra_js %}
 <script>
-<<<<<<< HEAD
 // Função para formatar valores em reais
 function formatCurrency(value) {
     return 'R$ ' + value.toLocaleString('pt-BR');
@@ -210,208 +157,155 @@ function createComparativeChart() {
                 }
             }
         });
-        console.log('Gráfico comparativo criado com sucesso!');
+        console.log('Gráfico criado com sucesso!');
         return chart;
     } catch (error) {
-        console.error('Erro ao criar gráfico comparativo:', error);
+        console.error('Erro ao criar o gráfico:', error);
         return null;
+    }
+}
+
+// Função para atualizar o período do gráfico
+function updatePeriod(period) {
+    const buttons = document.querySelectorAll('.btn-group .btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    let labels, orcado, realizado;
+    
+    switch(period) {
+        case 'month':
+            labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+            orcado = [150000, 180000, 160000, 190000, 175000, 200000];
+            realizado = [145000, 175000, 158000, 185000, 170000, 195000];
+            break;
+        case 'quarter':
+            labels = ['Q1', 'Q2', 'Q3', 'Q4'];
+            orcado = [490000, 565000, 580000, 615000];
+            realizado = [478000, 548000, 563000, 596000];
+            break;
+        case 'year':
+            labels = ['2020', '2021', '2022', '2023'];
+            orcado = [1800000, 2100000, 2400000, 2250000];
+            realizado = [1750000, 2050000, 2350000, 2180000];
+            break;
+    }
+
+    const chart = Chart.getChart('grafico_comparativo');
+    if (chart) {
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = orcado;
+        chart.data.datasets[1].data = realizado;
+        chart.update();
     }
 }
 
 // Função para criar o gráfico de categorias
 function createCategoryChart() {
-    console.log('Tentando criar gráfico de categorias...');
     const ctx = document.getElementById('categoryChart');
-    console.log('Elemento canvas encontrado:', ctx);
-    
-    if (!ctx) {
-        console.error('Elemento categoryChart não encontrado!');
-        return null;
-    }
+    if (!ctx) return;
 
-    try {
-        const categoryData = {
-            labels: ['Materiais', 'Mão de Obra', 'Equipamentos', 'Serviços', 'Outros'],
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Material', 'Mão de Obra', 'Equipamentos', 'Serviços', 'Outros'],
             datasets: [{
                 data: [35, 25, 20, 15, 5],
                 backgroundColor: [
+                    'rgba(59, 130, 246, 0.7)',
+                    'rgba(34, 197, 94, 0.7)',
+                    'rgba(245, 158, 11, 0.7)',
+                    'rgba(6, 182, 212, 0.7)',
+                    'rgba(99, 102, 241, 0.7)'
+                ],
+                borderColor: [
                     '#3b82f6',
                     '#22c55e',
                     '#f59e0b',
-                    '#ef4444',
-                    '#06b6d4'
-                ]
+                    '#06b6d4',
+                    '#6366f1'
+                ],
+                borderWidth: 2
             }]
-        };
-
-        console.log('Criando instância do Chart...');
-        const chart = new Chart(ctx, {
-            type: 'doughnut',
-            data: categoryData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'right'
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        padding: 20,
+                        font: {
+                            size: 12
+                        }
                     }
                 }
             }
-        });
-        console.log('Gráfico de categorias criado com sucesso!');
-        return chart;
-    } catch (error) {
-        console.error('Erro ao criar gráfico de categorias:', error);
-        return null;
-    }
+        }
+    });
 }
 
 // Função para criar o gráfico de tendência
 function createTrendChart() {
-    console.log('Tentando criar gráfico de tendência...');
     const ctx = document.getElementById('trendChart');
-    console.log('Elemento canvas encontrado:', ctx);
-    
-    if (!ctx) {
-        console.error('Elemento trendChart não encontrado!');
-        return null;
-    }
+    if (!ctx) return;
 
-    try {
-        const trendData = {
+    new Chart(ctx, {
+        type: 'line',
+        data: {
             labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
             datasets: [{
                 label: 'Custo por m²',
-                data: [1200, 1250, 1280, 1310, 1350, 1380],
+                data: [2200, 2180, 2250, 2300, 2280, 2350],
                 borderColor: '#3b82f6',
                 backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                borderWidth: 2,
                 fill: true,
                 tension: 0.4
             }]
-        };
-
-        console.log('Criando instância do Chart...');
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: trendData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        grid: {
-                            color: 'rgba(255,255,255,0.1)'
-                        },
-                        ticks: {
-                            callback: formatCurrency
-                        }
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    grid: {
+                        color: 'rgba(255,255,255,0.1)'
+                    },
+                    ticks: {
+                        callback: value => 'R$ ' + value.toLocaleString('pt-BR')
                     }
                 },
-                plugins: {
-                    legend: {
+                x: {
+                    grid: {
                         display: false
                     }
                 }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Custo: R$ ' + context.parsed.y.toLocaleString('pt-BR') + '/m²';
+                        }
+                    }
+                }
             }
-        });
-        console.log('Gráfico de tendência criado com sucesso!');
-        return chart;
-    } catch (error) {
-        console.error('Erro ao criar gráfico de tendência:', error);
-        return null;
-    }
+        }
+    });
 }
 
-// Função para atualizar o período do gráfico comparativo
-function updatePeriod(period) {
-    console.log('Atualizando período para:', period);
-    if (!window.comparativeChart) {
-        console.error('Gráfico comparativo não encontrado!');
-        return;
-    }
-
-    let labels, data1, data2;
-    
-    switch(period) {
-        case 'quarter':
-            labels = ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024'];
-            data1 = [490000, 565000, 610000, 585000];
-            data2 = [480000, 550000, 595000, 570000];
-            break;
-        case 'year':
-            labels = ['2021', '2022', '2023', '2024'];
-            data1 = [1800000, 2100000, 2400000, 2250000];
-            data2 = [1750000, 2050000, 2350000, 2200000];
-            break;
-        default: // month
-            labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
-            data1 = [150000, 180000, 160000, 190000, 175000, 200000];
-            data2 = [145000, 175000, 158000, 185000, 170000, 195000];
-    }
-
-    try {
-        window.comparativeChart.data.labels = labels;
-        window.comparativeChart.data.datasets[0].data = data1;
-        window.comparativeChart.data.datasets[1].data = data2;
-        window.comparativeChart.update();
-        console.log('Período atualizado com sucesso!');
-    } catch (error) {
-        console.error('Erro ao atualizar período:', error);
-    }
-}
-
-// Inicialização dos gráficos quando a página estiver completamente carregada
-console.log('Script iniciado...');
+// Inicialização dos gráficos
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM carregado, configurando Chart.js...');
-    
-    // Configuração global do Chart.js
-    Chart.defaults.color = '#94a3b8';
-    Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
-
-    console.log('Criando gráficos...');
-    // Criar os gráficos
-    window.comparativeChart = createComparativeChart();
-    window.categoryChart = createCategoryChart();
-    window.trendChart = createTrendChart();
-
-    // Atualizar botões de período
-    const periodButtons = document.querySelectorAll('.btn-group .btn');
-    console.log('Botões de período encontrados:', periodButtons.length);
-    
-    periodButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            console.log('Botão clicado:', this.textContent.trim());
-            periodButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-    
-    console.log('Inicialização concluída!');
+    console.log('DOM carregado, iniciando criação dos gráficos...');
+    createComparativeChart();
+    createCategoryChart();
+    createTrendChart();
 });
-=======
-    document.addEventListener('DOMContentLoaded', function() {
-        // Dados de exemplo - serão substituídos por dados reais
-        const data = [{
-            x: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
-            y: [100000, 120000, 90000, 110000, 95000],
-            name: 'Orçado',
-            type: 'bar'
-        }, {
-            x: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
-            y: [95000, 115000, 88000, 105000, 92000],
-            name: 'Realizado',
-            type: 'bar'
-        }];
-
-        const layout = {
-            barmode: 'group',
-            title: 'Comparativo Mensal'
-        };
-
-        createChart('grafico_comparativo', data, layout);
-    });
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
 </script>
 {% endblock %} 
