@@ -10,7 +10,8 @@
 
 ---
 
-![image](https://github.com/user-attachments/assets/af487ed4-b390-468a-a58e-51a51e90c582)
+![image](https://github.com/user-attachments/assets/60afa891-9c05-4e6d-8416-a3782be14130)
+
 
 🧾Descrição
 ## Esta é a página de Inteligência de Mercado do projeto Sienge Dashboard.
