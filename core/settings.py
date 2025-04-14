@@ -1,14 +1,16 @@
 from pathlib import Path
 import os
 import environ
+import sys
+
+# Adicionar o diretório 'apps' ao PYTHONPATH
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(BASE_DIR))
 
 # Inicializar environ
 env = environ.Env(
     DEBUG=(bool, False)
 )
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Ler arquivo .env se existir
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))

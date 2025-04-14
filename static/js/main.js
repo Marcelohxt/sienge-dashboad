@@ -1,20 +1,24 @@
-// Função para animação de números
-function animateNumber(element, start, end, duration) {
+// Função para animar números
+function animateNumber(element, target) {
+    const duration = 2000; // 2 segundos
+    const start = 0;
+    const increment = target / (duration / 16); // 60 FPS
     let current = start;
-    const range = end - start;
-    const increment = end > start ? 1 : -1;
-    const stepTime = Math.abs(Math.floor(duration / range));
-    
-    const timer = setInterval(() => {
+
+    const animate = () => {
         current += increment;
-        element.textContent = current.toLocaleString();
-        if (current == end) {
-            clearInterval(timer);
+        if (current >= target) {
+            element.textContent = target.toLocaleString();
+            return;
         }
-    }, stepTime);
+        element.textContent = Math.floor(current).toLocaleString();
+        requestAnimationFrame(animate);
+    };
+
+    animate();
 }
 
-// Função para formatar valores monetários
+// Função para formatar moeda
 function formatCurrency(value) {
     return new Intl.NumberFormat('pt-BR', {
         style: 'currency',
@@ -22,64 +26,88 @@ function formatCurrency(value) {
     }).format(value);
 }
 
-// Configuração padrão para gráficos
-const chartDefaults = {
-    layout: {
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: 'rgba(0,0,0,0)',
-        font: {
-            color: '#a0aec0'
+// Configuração padrão para gráficos com tema escuro
+const defaultChartConfig = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            position: 'top',
+            labels: {
+                color: '#e5e7eb'
+            }
+        }
+    },
+    scales: {
+        x: {
+            grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+            },
+            ticks: {
+                color: '#e5e7eb'
+            }
         },
-        margin: {
-            l: 50,
-            r: 20,
-            t: 30,
-            b: 50
+        y: {
+            grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+            },
+            ticks: {
+                color: '#e5e7eb'
+            }
         }
     }
 };
 
-// Função para criar gráficos com tema escuro
-function createDarkThemeChart(element, data, customLayout = {}) {
-    const layout = {
-        ...chartDefaults.layout,
-        ...customLayout,
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: 'rgba(0,0,0,0)',
-        font: {
-            color: '#a0aec0'
-        },
-        xaxis: {
-            gridcolor: 'rgba(255,255,255,0.1)',
-            linecolor: 'rgba(255,255,255,0.1)'
-        },
-        yaxis: {
-            gridcolor: 'rgba(255,255,255,0.1)',
-            linecolor: 'rgba(255,255,255,0.1)'
+// Função para criar gráfico com tema escuro
+function createDarkThemeChart(ctx, data) {
+    return new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: {
+            ...defaultChartConfig,
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
+            plugins: {
+                ...defaultChartConfig.plugins,
+                tooltip: {
+                    enabled: true,
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += context.parsed.y.toFixed(2);
+                            return label;
+                        }
+                    }
+                }
+            }
         }
-    };
-
-    Plotly.newPlot(element, data, layout, {
-        responsive: true,
-        displayModeBar: false
     });
 }
 
-// Inicialização quando o documento estiver pronto
+// Adicionar efeito hover nos cards do dashboard
 document.addEventListener('DOMContentLoaded', function() {
-    // Animar números nos cards
-    document.querySelectorAll('[data-animate-number]').forEach(element => {
-        const end = parseInt(element.getAttribute('data-animate-number'));
-        animateNumber(element, 0, end, 1000);
-    });
-
-    // Adicionar efeito hover nos cards
-    document.querySelectorAll('.dashboard-card').forEach(card => {
+    const cards = document.querySelectorAll('.metric-card');
+    cards.forEach(card => {
         card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px)';
+            this.style.transform = 'translateY(-5px)';
+            this.style.transition = 'transform 0.3s ease';
         });
+        
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
+    });
+
+    // Inicializar tooltips do Bootstrap
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 }); 

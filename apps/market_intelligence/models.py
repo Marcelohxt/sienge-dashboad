@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class MarketNews(models.Model):
     title = models.CharField(max_length=255)
@@ -63,4 +64,47 @@ class BulkQuoteUpload(models.Model):
     processed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    result_file = models.FileField(upload_to='results/', blank=True, null=True) 
+    result_file = models.FileField(upload_to='results/', blank=True, null=True)
+
+class IndicesConstrucao(models.Model):
+    data = models.DateField(default=timezone.now)
+    incc = models.DecimalField(max_digits=5, decimal_places=2)  # INCC do mês
+    cub = models.DecimalField(max_digits=8, decimal_places=2)   # CUB/m²
+    variacao_mensal = models.DecimalField(max_digits=5, decimal_places=2)  # Variação mensal
+    
+    class Meta:
+        ordering = ['-data']
+        verbose_name = 'Índice da Construção'
+        verbose_name_plural = 'Índices da Construção'
+
+    def __str__(self):
+        return f"Índices de {self.data.strftime('%m/%Y')}"
+
+class MaterialPreco(models.Model):
+    material = models.CharField(max_length=200)
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    variacao = models.DecimalField(max_digits=5, decimal_places=2)
+    data_atualizacao = models.DateField(default=timezone.now)
+    
+    class Meta:
+        ordering = ['material']
+        verbose_name = 'Preço de Material'
+        verbose_name_plural = 'Preços de Materiais'
+
+    def __str__(self):
+        return f"{self.material} - R$ {self.preco}"
+
+class Noticia(models.Model):
+    titulo = models.CharField(max_length=300)
+    descricao = models.TextField()
+    fonte = models.CharField(max_length=100)
+    link = models.URLField()
+    data_publicacao = models.DateTimeField(default=timezone.now)
+    
+    class Meta:
+        ordering = ['-data_publicacao']
+        verbose_name = 'Notícia'
+        verbose_name_plural = 'Notícias'
+
+    def __str__(self):
+        return self.titulo 

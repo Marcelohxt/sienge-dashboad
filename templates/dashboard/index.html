@@ -1,176 +1,105 @@
 {% extends 'base.html' %}
 {% load static %}
-<<<<<<< HEAD
-{% load dashboard_extras %}
-=======
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
+{% load dashboard_filters %}
 
-{% block title %}Dashboard - Sienge{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row mb-4">
-        <div class="col">
-<<<<<<< HEAD
-            <h2 class="page-title">Dashboard</h2>
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Dashboard</h2>
             <small class="text-muted">Última atualização: {{ last_update }}</small>
         </div>
     </div>
 
-    <!-- Cards de Métricas -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="metric-card blue">
-                <h6 class="metric-label">Solicitações de Compra</h6>
-                <div class="metric-value">{{ solicitacoes_total }}</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="metric-card green">
-                <h6 class="metric-label">Pedidos em Andamento</h6>
-                <div class="metric-value">{{ pedidos_andamento }}</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="metric-card yellow">
-                <h6 class="metric-label">Cotações em Aberto</h6>
-                <div class="metric-value">{{ cotacoes_abertas }}</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="metric-card cyan">
-                <h6 class="metric-label">Itens em Estoque</h6>
-                <div class="metric-value">{{ itens_estoque }}</div>
-=======
-            <h2>Dashboard</h2>
-        </div>
-    </div>
-
-    <!-- Cards de Resumo -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card dashboard-card bg-primary text-white">
+    <!-- Métricas Principais -->
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-sm-6">
+            <div class="card metric-card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Solicitações de Compra</h5>
-                    <h2 class="card-text" data-value="total_solicitacoes">0</h2>
+                    <h5 class="card-title">Solicitações</h5>
+                    <p class="card-text display-6 mb-1" data-value="{{ solicitacoes_total }}" data-format="number">0</p>
+                    <small class="text-muted">Total de solicitações</small>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card dashboard-card bg-success text-white">
+        <div class="col-xl-3 col-sm-6">
+            <div class="card metric-card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Pedidos em Andamento</h5>
-                    <h2 class="card-text" data-value="total_pedidos">0</h2>
+                    <h5 class="card-title">Pedidos</h5>
+                    <p class="card-text display-6 mb-1" data-value="{{ pedidos_andamento }}" data-format="number">0</p>
+                    <small class="text-muted">Em andamento</small>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card dashboard-card bg-warning text-white">
+        <div class="col-xl-3 col-sm-6">
+            <div class="card metric-card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Cotações em Aberto</h5>
-                    <h2 class="card-text" data-value="total_cotacoes">0</h2>
+                    <h5 class="card-title">Cotações</h5>
+                    <p class="card-text display-6 mb-1" data-value="{{ cotacoes_abertas }}" data-format="number">0</p>
+                    <small class="text-muted">Em aberto</small>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card dashboard-card bg-info text-white">
+        <div class="col-xl-3 col-sm-6">
+            <div class="card metric-card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Itens em Estoque</h5>
-                    <h2 class="card-text" data-value="total_itens">0</h2>
+                    <h5 class="card-title">Estoque</h5>
+                    <p class="card-text display-6 mb-1" data-value="{{ itens_estoque }}" data-format="number">0</p>
+                    <small class="text-muted">Itens em estoque</small>
                 </div>
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
             </div>
         </div>
     </div>
 
-    <!-- Gráficos -->
-    <div class="row">
-        <div class="col-md-6 mb-4">
-<<<<<<< HEAD
-            <div class="chart-container" style="position: relative; height: 400px;">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="card-title m-0">Índices da Construção Civil</h5>
-                    <div class="btn-group btn-group-sm">
-                        <button type="button" class="btn btn-primary active" onclick="toggleIndex('incc')">INCC</button>
-                        <button type="button" class="btn btn-primary" onclick="toggleIndex('cub')">CUB</button>
+    <!-- Gráficos e Tabelas -->
+    <div class="row g-4">
+        <!-- Índices da Construção -->
+        <div class="col-xl-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Índices da Construção</h5>
+                    <div class="chart-container" style="position: relative; height: 300px;">
+                        <canvas id="constructionIndicesChart"></canvas>
                     </div>
                 </div>
-                <canvas id="indicesChart"></canvas>
             </div>
         </div>
-        <div class="col-md-6 mb-4">
-            <div class="chart-container" style="position: relative; height: 400px;">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="card-title m-0">Evolução de Preços - Materiais</h5>
-                    <div class="btn-group btn-group-sm">
-                        <button type="button" class="btn btn-primary active">6 Meses</button>
-                    </div>
-                </div>
-                <canvas id="materialsChart"></canvas>
-            </div>
-        </div>
-    </div>
 
-    <!-- Tabela de Preços -->
-    <div class="row">
-        <div class="col-12">
-            <div class="chart-container">
-                <h5 class="card-title mb-4">Preços Atuais - Principais Materiais</h5>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Material</th>
-                                <th>Preço Atual</th>
-                                <th>Variação (30d)</th>
-                                <th>Tendência</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for material, history in material_prices.items %}
-                            {% with current=history.0 previous=history.1 %}
-                            <tr>
-                                <td>{{ material }}</td>
-                                <td>R$ {{ current.price }}</td>
-                                <td>
-                                    {% with var=current.price|subtract:previous.price %}
-                                    {% if var > 0 %}
-                                    <span class="text-success">+{{ var|floatformat:2 }}%</span>
-                                    {% else %}
-                                    <span class="text-danger">{{ var|floatformat:2 }}%</span>
-                                    {% endif %}
-                                    {% endwith %}
-                                </td>
-                                <td>
-                                    <span class="sparkline">
-                                        {% for item in history reversed %}
-                                        {{ item.price }}{% if not forloop.last %},{% endif %}
-                                        {% endfor %}
-                                    </span>
-                                </td>
-                            </tr>
-                            {% endwith %}
-                            {% endfor %}
-                        </tbody>
-                    </table>
-=======
-            <div class="card">
-                <div class="card-header">
-                    <h5>Solicitações por Status</h5>
-                </div>
+        <!-- Preços de Materiais -->
+        <div class="col-xl-6">
+            <div class="card h-100">
                 <div class="card-body">
-                    <div id="grafico_solicitacoes" style="height: 300px;"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Pedidos por Mês</h5>
-                </div>
-                <div class="card-body">
-                    <div id="grafico_pedidos" style="height: 300px;"></div>
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
+                    <h5 class="card-title">Preços de Materiais</h5>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Material</th>
+                                    <th class="text-end">Preço Atual</th>
+                                    <th class="text-end">Variação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for material, prices in material_prices.items %}
+                                {% with current_price=prices.0.price previous_price=prices.1.price %}
+                                {% with variation=current_price|subtract:previous_price|percentage:previous_price %}
+                                <tr>
+                                    <td>{{ material }}</td>
+                                    <td class="text-end">R$ {{ current_price|floatformat:2 }}</td>
+                                    <td class="text-end">
+                                        <span class="badge {% if variation > 0 %}bg-danger{% elif variation < 0 %}bg-success{% else %}bg-secondary{% endif %}">
+                                            {% if variation > 0 %}+{% endif %}{{ variation|floatformat:1 }}%
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endwith %}
+                                {% endwith %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -179,165 +108,39 @@
 {% endblock %}
 
 {% block extra_js %}
-<<<<<<< HEAD
-<script src="https://cdn.jsdelivr.net/npm/jquery-sparkline@2.1.3/jquery.sparkline.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
 <script>
-    // Função para gerar cores aleatórias
-    function getRandomColor() {
-        const colors = ['#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#06b6d4', '#8b5cf6'];
-        return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    // Função para criar o gráfico de índices
-    function createIndicesChart() {
-        const ctx = document.getElementById('indicesChart');
-        if (!ctx) return null;
-
-        try {
-            const bcbData = {{ bcb_data|safe }};
-            return new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: bcbData.incc_data.map(item => item.data),
-                    datasets: [{
-                        label: 'INCC',
-                        data: bcbData.incc_data.map(item => item.valor),
-                        borderColor: '#3b82f6',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            grid: {
-                                color: 'rgba(255,255,255,0.1)'
-                            }
-                        }
-                    }
-                }
-            });
-        } catch (error) {
-            console.error('Erro ao criar gráfico de índices:', error);
-            return null;
-        }
-    }
-
-    // Função para criar o gráfico de materiais
-    function createMaterialsChart() {
-        const ctx = document.getElementById('materialsChart');
-        if (!ctx) return null;
-
-        try {
-            const materialPrices = {{ material_prices|safe }};
-            return new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: materialPrices['Cimento'].map(item => item.date),
-                    datasets: Object.entries(materialPrices).map(([material, history]) => ({
-                        label: material,
-                        data: history.map(item => item.price),
-                        borderColor: getRandomColor(),
-                        tension: 0.4
-                    }))
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            grid: {
-                                color: 'rgba(255,255,255,0.1)'
-                            }
-                        }
-                    }
-                }
-            });
-        } catch (error) {
-            console.error('Erro ao criar gráfico de materiais:', error);
-            return null;
-        }
-    }
-
-    // Função para alternar entre INCC e CUB
-    window.toggleIndex = function(index) {
-        if (!window.indicesChart) return;
-
-        const bcbData = {{ bcb_data|safe }};
-        const data = index === 'incc' ? bcbData.incc_data : bcbData.cub_data;
-        
-        window.indicesChart.data.labels = data.map(item => item.data);
-        window.indicesChart.data.datasets[0].label = index.toUpperCase();
-        window.indicesChart.data.datasets[0].data = data.map(item => item.valor);
-        window.indicesChart.update();
-
-        // Atualizar estado dos botões
-        document.querySelectorAll('.btn-group .btn').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.textContent.toLowerCase() === index.toUpperCase()) {
-                btn.classList.add('active');
-            }
-        });
-    };
-
-    // Inicialização quando o DOM estiver carregado
     document.addEventListener('DOMContentLoaded', function() {
-        // Configuração global do Chart.js
-        Chart.defaults.color = '#94a3b8';
-        Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
-
-        // Criar os gráficos
-        window.indicesChart = createIndicesChart();
-        window.materialsChart = createMaterialsChart();
-
-        // Inicializar sparklines
-        $('.sparkline').sparkline('html', {
-            type: 'line',
-            width: '100',
-            height: '30',
-            lineColor: '#3b82f6',
-            fillColor: 'rgba(59, 130, 246, 0.1)',
-            spotColor: '#22c55e',
-            minSpotColor: '#ef4444',
-            maxSpotColor: '#22c55e',
-            highlightSpotColor: '#f59e0b',
-            highlightLineColor: '#f59e0b',
-            spotRadius: 3,
-            chartRangeMin: 0
+        // Animar números
+        document.querySelectorAll('.card-text[data-value]').forEach(element => {
+            const value = parseInt(element.dataset.value);
+            const format = element.dataset.format || 'number';
+            animateNumber(element, value, format === 'currency' ? formatCurrency : null);
         });
-=======
-<script>
-    // Inicialização dos gráficos
-    document.addEventListener('DOMContentLoaded', function() {
-        // Dados de exemplo - serão substituídos por dados reais da API
-        const dadosSolicitacoes = {
-            data: [{
-                values: [30, 20, 15, 10],
-                labels: ['Em Análise', 'Aprovado', 'Pendente', 'Rejeitado'],
-                type: 'pie'
-            }],
-            layout: {
-                title: 'Status das Solicitações'
-            }
-        };
 
-        const dadosPedidos = {
-            data: [{
-                x: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
-                y: [20, 25, 30, 22, 28],
-                type: 'bar'
-            }],
-            layout: {
-                title: 'Pedidos por Mês'
-            }
-        };
+        // Dados dos índices
+        const inccData = {{ bcb_data.incc_data|safe }};
+        const cubData = {{ bcb_data.cub_data|safe }};
 
-        createChart('grafico_solicitacoes', dadosSolicitacoes.data, dadosSolicitacoes.layout);
-        createChart('grafico_pedidos', dadosPedidos.data, dadosPedidos.layout);
->>>>>>> b24c1001d05a217bf2554b6cbfbce4dfc72189de
+        // Configurar gráfico
+        const ctx = document.getElementById('constructionIndicesChart').getContext('2d');
+        createDarkThemeChart(ctx, {
+            labels: inccData.map(item => item.data.split('-').slice(0, 2).join('/')),
+            datasets: [
+                {
+                    label: 'INCC',
+                    data: inccData.map(item => item.valor),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    tension: 0.4
+                },
+                {
+                    label: 'CUB',
+                    data: cubData.map(item => item.valor),
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    tension: 0.4
+                }
+            ]
+        });
     });
 </script>
 {% endblock %} 

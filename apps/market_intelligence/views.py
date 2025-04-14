@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, FormView
+from django.views.generic import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
@@ -8,77 +8,70 @@ import json
 import asyncio
 from datetime import datetime, timedelta
 import random
+from django.shortcuts import render
+from django.utils import timezone
+from .models import IndicesConstrucao, MaterialPreco, Noticia
 
-class MarketIntelligenceView(TemplateView):
-    template_name = 'market_intelligence/dashboard.html'
+def dashboard(request):
+    # Obtém os índices mais recentes
+    try:
+        indices = IndicesConstrucao.objects.latest('data')
+    except IndicesConstrucao.DoesNotExist:
+        # Cria dados iniciais se não existirem
+        indices = IndicesConstrucao.objects.create(
+            data=timezone.now().date(),
+            incc=0.5,
+            cub=1500.00,
+            variacao_mensal=0.3
+        )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['sample_news'] = self.get_sample_news()
-        context['price_trends'] = self.get_price_trends()
-        return context
+    # Obtém as notícias do dia
+    hoje = timezone.now().date()
+    noticias_hoje = Noticia.objects.filter(data_publicacao__date=hoje).count()
+    
+    # Obtém as últimas notícias (limitado a 5)
+    ultimas_noticias = Noticia.objects.all()[:5]
+    
+    # Obtém os preços dos materiais
+    materiais = MaterialPreco.objects.all()
 
-    def get_price_trends(self):
-        # Dados de exemplo para tendências de preços
-        materials = ['Cimento', 'Areia', 'Brita', 'Tijolo', 'Aço']
-        trends = []
+    # Dados de exemplo para tendências de preços
+    materials = ['Cimento', 'Areia', 'Brita', 'Tijolo', 'Aço']
+    trends = []
+    
+    base_date = datetime.now()
+    for material in materials:
+        price_history = []
+        base_price = random.uniform(50, 500)
         
-        base_date = datetime.now()
-        for material in materials:
-            price_history = []
-            base_price = random.uniform(50, 500)
-            
-            for i in range(7):
-                date = base_date - timedelta(days=i)
-                variation = random.uniform(-5, 5)
-                price = base_price + variation
-                price_history.append({
-                    'date': date.strftime('%d/%m/%Y'),
-                    'price': round(price, 2)
-                })
-            
-            trends.append({
-                'material': material,
-                'history': price_history,
-                'current_price': round(price_history[0]['price'], 2),
-                'variation': round(((price_history[0]['price'] - price_history[-1]['price']) / price_history[-1]['price']) * 100, 2)
+        for i in range(7):
+            date = base_date - timedelta(days=i)
+            variation = random.uniform(-5, 5)
+            price = base_price + variation
+            price_history.append({
+                'date': date.strftime('%d/%m/%Y'),
+                'price': round(price, 2)
             })
         
-        return trends
+        trends.append({
+            'material': material,
+            'history': price_history,
+            'current_price': round(price_history[0]['price'], 2),
+            'variation': round(((price_history[0]['price'] - price_history[-1]['price']) / price_history[-1]['price']) * 100, 2)
+        })
 
-    def get_sample_news(self):
-        # Dados de exemplo para notícias do mercado
-        base_date = datetime.now()
-        news_list = [
-            {
-                'title': 'Aumento no preço do aço impacta construção civil',
-                'date': (base_date - timedelta(days=1)).strftime('%d/%m/%Y'),
-                'source': 'Construção Mercado',
-                'summary': 'Preços do aço registram aumento de 15% no último mês devido à demanda global.'
-            },
-            {
-                'title': 'Novos materiais sustentáveis ganham mercado',
-                'date': (base_date - timedelta(days=2)).strftime('%d/%m/%Y'),
-                'source': 'Revista Construir',
-                'summary': 'Materiais eco-friendly apresentam crescimento de 25% nas vendas do setor.'
-            },
-            {
-                'title': 'Cimento tem queda de preço em março',
-                'date': (base_date - timedelta(days=3)).strftime('%d/%m/%Y'),
-                'source': 'Portal Construção',
-                'summary': 'Preço do cimento registra queda de 5% devido ao aumento da oferta.'
-            }
-        ]
-        return news_list
-
-    def get(self, request, *args, **kwargs):
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            data = {
-                'price_trends': self.get_price_trends(),
-                'news': self.get_sample_news()
-            }
-            return JsonResponse(data)
-        return super().get(request, *args, **kwargs)
+    context = {
+        'indices': indices,
+        'noticias_hoje': noticias_hoje,
+        'ultimas_noticias': ultimas_noticias,
+        'materiais': materiais,
+        'price_trends': trends
+    }
+    
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse(context)
+    
+    return render(request, 'market_intelligence/dashboard.html', context)
 
 class QuoteSearchView(FormView):
     template_name = 'market_intelligence/quote_search.html'
